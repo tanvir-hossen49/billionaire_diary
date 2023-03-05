@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BILLIONAIRE DIARY</title>
+    <!-- tailwind css -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- custom css link -->
+    <link rel="stylesheet" href="app/style.css" />
+  </head>
+  <body>
+    <main class="lg:flex text-sm lg:text-lg">
+      <!-- left side section -->
+      <section
+        class="lg:w-3/12 lg:h-screen lg:fixed lg:top:0 lg:bottom:0 lg:left:0 bg-[#0E1B34] text-[#D9D9D9] px-4 py-5"
+      >
+        <!-- heading -->
+        <div class="text-center">
+          <h1 class="font-bold">
+            BILLIONAIRE<br />
+            <span class="text-[#888D97] font-semibold">DIARY</span>
+          </h1>
+        </div>
+        <!-- filter billionaire -->
+        <div id="filter-btn" class="text-[#0E1B34] grid gap-3 mt-10">
+          <!-- show TEN billionaire -->
+          <button
+            class="font-bold py-3 lg:w-full text-center bg-[#D9D9D9] active"
+            data-value="?limit=10"
+          >
+            Show Top10 Billionaire
+          </button>
+
+          <!-- show all billionaire -->
+          <button
+            class="font-bold py-3 lg:w-full text-center bg-[#D9D9D9]"
+            data-value="getAllBillionaires"
+          >
+            Show All Billionaire
+          </button>
+
+          <!-- technology -->
+          <button
+            class="bg-[#D9D9D9] text-center py-1"
+            data-value="industries/technology"
+          >
+            <span class="font-bold">Richest By Industry</span>
+            <br />
+            <span class="font-light">(Technology)</span>
+          </button>
+
+          <!-- texas -->
+          <button
+            class="py-1 bg-[#D9D9D9] text-center"
+            data-value="states/Texas"
+          >
+            <span class="font-bold">Richest By State</span>
+            <br />
+            <span class="font-light">(Taxes)</span>
+          </button>
+
+          <!-- finance -->
+          <button
+            class="py-1 bg-[#D9D9D9] text-center"
+            data-value="industries/finance"
+          >
+            <span class="font-bold">Richest By Industry</span>
+            <br />
+            <span class="font-light">(Finance)</span>
+          </button>
+
+          <!-- investment -->
+          <button
+            class="py-1 bg-[#D9D9D9] text-center"
+            data-value="industries/investments"
+          >
+            <span class="font-bold">Richest By Industry</span>
+            <br />
+            <span class="font-light">(Investment)</span>
+          </button>
+          <!-- Fashion -->
+          <button
+            class="py-1 bg-[#D9D9D9] text-center"
+            data-value="industries/fashion"
+          >
+            <span class="font-bold">Richest By Industry</span>
+            <br />
+            <span class="font-light">(Fashion)</span>
+          </button>
+        </div>
+      </section>
+      <!-- right side section -->
+      <section
+        class="lg:w-9/12 lg:absolute lg:right-0 bg-[#D9D9D9] min-h-screen"
+      >
+        <!-- header  -->
+        <header
+          class="flex p-2 lg:p-0 justify-between items-center bg-[#FCFAFA] lg:px-5 lg:py-7"
+        >
+          <!-- search bar -->
+          <div>
+            <input
+              type="text"
+              id="search"
+              placeholder="Search"
+              class="border-0 outline-0 border-b-2 bg-transparent"
+              autocomplete="off"
+            />
+            <div class="text-xs text-red-400">
+              *when show all billionaire please don't use search button use
+              filter
+            </div>
+          </div>
+
+          <!-- company logo -->
+          <div>
+            <img src="images/logo/logo1.png" alt="" class="w-12 h-12" />
+          </div>
+        </header>
+        <!-- search result -->
+        <div class="lg:mx-8 lg:mt-6 p-2 lg:p-0">
+          <table class="w-full text-left border-spacing-10">
+            <thead
+              class="border border-transparent border-b-[#0E1B34] border-b-1 h-[50px]"
+            >
+              <tr>
+                <th id="person">
+                  Person
+                  <select
+                    id="gender-select"
+                    class="border table-filter-all text-sm rounded-lg inline w-[90px] p-1 lg:ml-1 ml-0"
+                  >
+                    <option selected>All</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
+                </th>
+                <th id="citizenship">
+                  Citizenship
+                  <select
+                    class="table-filter table-filter-all border text-sm rounded-lg inline w-[60px] p-1 lg:ml-1 ml-0"
+                  ></select>
+                </th>
+                <th id="industry">
+                  Industry
+                  <select
+                    class="table-filter table-filter-all border text-sm rounded-lg inline w-[60px] p-1 lg:ml-1 ml-0"
+                  ></select>
+                </th>
+                <th>Rank</th>
+                <th>Wealth</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+            <tfoot>
+              <tr
+                class="border border-transparent border-t-[#0E1B34] border-t-1 h-[50px]"
+              >
+                <th colspan="4">Total</th>
+                <th id="total-amount">0</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="app/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+p {
+  font-weight: 300;
+}
+
+button {
+  cursor: pointer;
+}
+table tbody tr {
+  height: 40px;
+}
+table tbody tr td:first-child {
+  padding-right: 10px;
+}
+table tbody tr td:first-child,
+thead tr th:first-child {
+  width: 35%;
+}
+
+table thead tr th:last-child,
+tbody tr td:last-child,
+tfoot tr th:last-child {
+  text-align: right;
+}
+table thead tr th:nth-child(4),
+tbody tr td:nth-child(4) {
+  text-align: center;
+}
+
+#spin td div {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+select {
+  cursor: pointer;
+}
+
+button.active,
+button:hover {
+  background-color: #959595;
+  color: #ffffff;
+}
