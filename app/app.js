@@ -4,7 +4,6 @@ window.onload = () => {
 
 // when loadFunction is called set billionaire value = array of object;
 let billionaireArray;
-
 let count = 0;
 
 // load data from server
@@ -30,41 +29,46 @@ const loadData = async (category = "?limit=10") => {
   } catch (error) {
     const tableBody = document.getElementById("table-body");
     tableBody.innerHTML = `
-  <tr></tr>
-      <tr id='spin'>
-        <td colspan='5'>
-            <div>
-            <h1>Feild.........</h1>
-          </div>  
-        </td>
-      </tr>
-  <tr></tr>
+    <tr></tr>
+        <tr id='spin'>
+          <td colspan='5'>
+              <div>
+              <h1>Feild.........</h1>
+            </div>  
+          </td>
+        </tr>
+    <tr></tr>
   `;
   }
 };
 
 // display data in UI
-const displayData = (data) => {
+const displayData = data => {
   const tableBody = document.getElementById("table-body");
-
+  console.log(data);
   // clear table body before added element
   tableBody.innerHTML = "";
 
-  data.forEach((user) => {
-    let { rank, finalWorth, personName, countryOfCitizenship } = user;
-    let industry = user.industries[0] || "NO Industries";
-    let tableRow = document.createElement("tr");
-    tableRow.innerHTML = `
+  try {
+    data.forEach(user => {
+      console.log(user);
+      let { rank, finalWorth, personName, countryOfCitizenship } = user;
+      let industry = user?.industries?.[0] ?? "NO Industries";
+      let tableRow = document.createElement("tr");
+      tableRow.innerHTML = `
             <td>${++count}) ${personName}</td>
             <td>${countryOfCitizenship}</td>
             <td>${industry}</td>
             <td>${rank}</td>
             <td class='final-worth'>${finalWorth.toFixed(2)}</td>
     `;
-    tableBody.appendChild(tableRow);
-  });
-  calculationTotalAmount();
-  count = 0;
+      tableBody.appendChild(tableRow);
+    });
+    calculationTotalAmount();
+    count = 0;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // calculation total amount of billionaire
@@ -73,7 +77,7 @@ const calculationTotalAmount = () => {
   const totalAmountElement = document.getElementById("total-amount");
   totalAmountElement.innerHTML = "00.00";
   let total = 0;
-  amountElement.forEach((ele) => {
+  amountElement.forEach(ele => {
     if (getComputedStyle(ele.parentElement).display !== "none") {
       total += Number(ele.innerText);
     }
@@ -90,7 +94,7 @@ const getUniqueValue = () => {
     const cellID = fiter_i.parentElement.id;
     const rows = document.querySelectorAll("#table-body > tr");
 
-    rows.forEach((row) => {
+    rows.forEach(row => {
       const cell_value = row.querySelector(
         "td:nth-child(" + (index + 2) + ")"
       ).innerHTML;
@@ -111,14 +115,14 @@ const getUniqueValue = () => {
 };
 
 // create option element and dropdown list
-const updateSelectOptions = (obj) => {
+const updateSelectOptions = obj => {
   const allFiters = document.querySelectorAll(".table-filter");
-  allFiters.forEach((filter_i) => {
+  allFiters.forEach(filter_i => {
     const option = document.createElement("option");
     option.setAttribute("selected", "selected");
     option.innerText = "All";
     filter_i.appendChild(option);
-    obj[filter_i.parentElement.id].forEach((element) => {
+    obj[filter_i.parentElement.id].forEach(element => {
       filter_i.innerHTML += `
       <option value='${element}'>${element}</option>
       `;
@@ -131,7 +135,7 @@ const filterTable = () => {
   const tableFilter = document.querySelectorAll(".table-filter-all");
   let obj = {};
   if (billionaireArray) {
-    tableFilter.forEach((filte_i) => {
+    tableFilter.forEach(filte_i => {
       let value = filte_i.value;
       if (value !== "All") {
         obj[filte_i.parentElement.id] = value;
@@ -140,7 +144,7 @@ const filterTable = () => {
 
     if (obj.person && obj.citizenship && obj.industry) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) =>
+        ele =>
           obj.industry === ele.industries[0] &&
           obj.person === ele.gender &&
           obj.citizenship === ele.countryOfCitizenship
@@ -148,19 +152,19 @@ const filterTable = () => {
       displayData(newBillionaireArray);
     } else if (obj.person && obj.citizenship) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) =>
+        ele =>
           obj.person === ele.gender &&
           obj.citizenship === ele.countryOfCitizenship
       );
       displayData(newBillionaireArray);
     } else if (obj.person && obj.industry) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) => obj.person == ele.gender && obj.industry === ele.industries[0]
+        ele => obj.person == ele.gender && obj.industry === ele.industries[0]
       );
       displayData(newBillionaireArray);
     } else if (obj.citizenship && obj.industry) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) =>
+        ele =>
           obj.citizenship === ele.countryOfCitizenship &&
           obj.industry === ele.industries[0]
       );
@@ -168,18 +172,18 @@ const filterTable = () => {
       displayData(newBillionaireArray);
     } else if (obj.person) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) => obj.person === ele.gender
+        ele => obj.person === ele.gender
       );
 
       displayData(newBillionaireArray);
     } else if (obj.citizenship) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) => obj.citizenship === ele.countryOfCitizenship
+        ele => obj.citizenship === ele.countryOfCitizenship
       );
       displayData(newBillionaireArray);
     } else if (obj.industry) {
       const newBillionaireArray = billionaireArray.filter(
-        (ele) => obj.industry === ele.industries[0]
+        ele => obj.industry === ele.industries[0]
       );
 
       displayData(newBillionaireArray);
@@ -193,7 +197,7 @@ const filterTable = () => {
 const resetTbody = () => {
   // clear dropdown menu
   const allFiters = document.querySelectorAll(".table-filter");
-  allFiters.forEach((e) => (e.innerHTML = ""));
+  allFiters.forEach(e => (e.innerHTML = ""));
 
   // calculation amount
   document.getElementById("total-amount").innerHTML = "00.00";
@@ -219,39 +223,10 @@ const loadAnimation = () => {
   `;
 };
 
-// Event handler (when click category button)
-const filterButton = document.getElementById("filter-btn");
+const search = e => {
+  e.preventDefault();
 
-// add active class in button
-const buttons = document.querySelectorAll("#filter-btn button");
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    filterButton.querySelector(".active").classList.remove("active");
-    button.classList.add("active");
-  });
-});
-
-// Event listener for click filter button
-filterButton.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    const att = e.target.getAttribute("data-value");
-    loadData(att);
-  } else if (e.target.tagName === "SPAN") {
-    const att = e.target.parentElement.getAttribute("data-value");
-    loadData(att);
-  }
-});
-
-// Event listener
-document.querySelectorAll(".table-filter-all").forEach((filter_i) => {
-  filter_i.addEventListener("change", () => {
-    filterTable();
-  });
-});
-
-// Event listener
-document.getElementById("search").addEventListener("keyup", (e) => {
-  let inputValue = e.target.value.toLowerCase();
+  const inputValue = document.getElementById("search").value.toLowerCase();
 
   const tableBody = document.getElementById("table-body");
   const tableRows = tableBody.querySelectorAll("tr");
@@ -270,4 +245,36 @@ document.getElementById("search").addEventListener("keyup", (e) => {
       calculationTotalAmount();
     }
   });
+};
+
+// Event handler (when click category button)
+const filterButton = document.getElementById("filter-btn");
+
+// add active class in button
+const buttons = document.querySelectorAll("#filter-btn button");
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    filterButton.querySelector(".active").classList.remove("active");
+    button.classList.add("active");
+  });
 });
+
+// Event listener for click filter button
+filterButton.addEventListener("click", e => {
+  if (e.target.tagName === "BUTTON") {
+    const att = e.target.getAttribute("data-value");
+    loadData(att);
+  } else if (e.target.tagName === "SPAN") {
+    const att = e.target.parentElement.getAttribute("data-value");
+    loadData(att);
+  }
+});
+
+// Event listener
+document.querySelectorAll(".table-filter-all").forEach(filter_i => {
+  filter_i.addEventListener("change", () => {
+    filterTable();
+  });
+});
+
+document.getElementById("searchForm").addEventListener("submit", search);

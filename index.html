@@ -101,7 +101,7 @@
           class="flex p-2 lg:p-0 justify-between items-center bg-[#FCFAFA] lg:px-5 lg:py-7"
         >
           <!-- search bar -->
-          <div>
+          <form id="searchForm">
             <input
               type="text"
               id="search"
@@ -109,11 +109,8 @@
               class="border-0 outline-0 border-b-2 bg-transparent"
               autocomplete="off"
             />
-            <div class="text-xs text-red-400">
-              *when show all billionaire please don't use search button use
-              filter
-            </div>
-          </div>
+            <button type="submit" class="searchBtn">search</button>
+          </form>
 
           <!-- company logo -->
           <div>
