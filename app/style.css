@@ -51,7 +51,7 @@ button:hover {
 
 .searchBtn {
   padding: 5px 10px;
-  background-color: black;
+  background-color: black !important;
   color: white;
   border-radius: 10px;
   outline: none;
